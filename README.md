@@ -64,18 +64,9 @@ Resultado do processamento
  - **Servers** processam a informação fazendo a contagem das ocorrências encontradas e retornam para o master
 
 
-```mermaid
-graph LR
-A[Cliente] --> C(Master)
-D((Server1))
-E((Server2))
-F((Server3))
-C --> D
-C --> E
-C --> F
-```
+![Diagrama](https://github.com/renanxavierdev/pycluster/raw/master/img/diagram.png)
 
- 
+
 ## Contributions
 
 [Victor Queiroz](https://github.com/Victor-Queiroz)
