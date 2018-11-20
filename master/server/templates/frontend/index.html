@@ -1,0 +1,144 @@
+
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="en"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#7db557">
+  <link rel="canonical" href="#">
+
+  <title>
+    Cluster Strings
+  </title>
+
+  <!-- Lato Font -->
+  <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+
+  <meta id="shopify-digital-wallet" name="shopify-digital-wallet" content="/20302737/digital_wallets/dialog">
+  <style>
+
+  .z-depth-0 {
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 0 0 rgba(0, 0, 0, 0);
+    -moz-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 0 0 rgba(0, 0, 0);
+  }
+
+
+  </style>
+</head>
+<body class="blue-grey darken-3">
+
+ <nav class="blue-grey darken-3 z-depth-0" role="navigation">
+  <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Cluster</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="{% url 'dashboard' %}">Painel</a></li>
+    </ul>
+    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+</nav>
+
+<main>
+  <div class="cart-container container white-text">
+    <div class="empty-container">
+      <div class="supports-cookies center">
+        <br>
+        <br>
+        <br>
+        <h3 class="white-text"> Processe arquivos de textos em alta velocidade!</h3>
+      </div>
+      <br>
+      <br>
+      <br>
+      <form action="{% url 'search' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+         <input type="hidden" name="searchs">
+        <div class="row">
+          <div class="col s8">
+            <div class="chips chips-placeholder" name="chips"></div>
+         </div>
+         <div class="col s4  white-text">
+           <div class="file-field input-field">
+            <div class="btn">
+              <span>Arquivo .txt</span>
+              <input type="file" name="file_">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" name="file_name">
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="col s12 center">
+          <button type="submit" class="waves-effect waves-light btn btn-large">Processar</button>
+        </div>
+    </form>
+
+    <div class="center">
+      <p>
+        <br>
+        Nós somos capazes de processar uma grande quantidade de palavras chaves, envie suas palavras e um arquivo de texto!
+      </p>
+
+    </div>
+  </div>
+
+</div>
+</main>
+
+
+<!-- Javascript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+<script type="text/javascript">
+$('.sidenav').sidenav();
+var c = $('.chips-placeholder').chips({
+  placeholder: 'Informe uma palavra',
+  secondaryPlaceholder: '+Palavras',
+  onChipAdd: function (e, data) {
+    console.log(data); 
+      var f = "" ;
+          $(".chip").each(function() {
+
+            var atracao =   $(this).html().split("<i class=\"material-icons close\">close</i>");
+            console.log(atracao[0]);
+            f = f + atracao[0] + ", ";
+
+          });
+
+
+          f = f.substring(0, f.length - 2);
+
+        document.querySelector("[name='searchs']").value = f;
+  },
+   onChipDelete: function (e, data) {
+     var f ="" ;
+          $(".chip").each(function() {
+            var atracao =   $(this).html().split("<i class=\"material-icons close\">close</i>");
+            f = f +atracao[0] + ", ";
+
+
+          });
+
+          f = f.substring(0, f.length - 2);
+        document.querySelector("[name='searchs']").value = f;
+   }
+});
+
+
+  
+
+</script>
+
+
+</body>
+</html>

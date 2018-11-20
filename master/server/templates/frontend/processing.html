@@ -1,0 +1,147 @@
+
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="en"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#7db557">
+  <link rel="canonical" href="#">
+
+  <title>
+    Cluster Strings
+  </title>
+
+  <!-- Lato Font -->
+  <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+
+  <meta id="shopify-digital-wallet" name="shopify-digital-wallet" content="/20302737/digital_wallets/dialog">
+  <style>
+
+  .z-depth-0 {
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 0 0 rgba(0, 0, 0, 0);
+    -moz-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 0 0 rgba(0, 0, 0);
+  }
+
+
+  </style>
+</head>
+<body class="blue-grey darken-3">
+
+ <nav class="blue-grey darken-3 z-depth-0" role="navigation">
+  <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Cluster</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="{% url 'dashboard' %}">Painel</a></li>
+    </ul>
+    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  </div>
+</nav>
+
+<main>
+  <div class="cart-container container white-text">
+    <div class="empty-container">
+      <div class="supports-cookies center">
+        <br>
+        <br>
+        <h3 class="white-text">Processamento!</h3>
+      </div>
+      <br>
+      <br>
+     
+     <div class="row">
+      <div class="col s12">
+      <div class="card  blue-grey darken-1">
+        <div class="card-content center-align">
+          DURAÇÃO DO PROCESSAMENTO: <span id="duration">0.0</span> seg
+         </div>
+        </div>
+      </div>
+
+      <div class="col s12">
+
+        <div class="card  blue-grey darken-1">
+          <div class="card-content">
+              <table>
+                <thead>
+                  <tr>
+                      <th>Palavra</th>
+                      <th>Ocorrencias</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {% for key in keys %}
+                  <tr>
+                    <td>{{ key }}</td>
+                    <td id="{{ key }}">0</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+              
+
+      
+    <div class="center">
+      <p>
+        <br>
+        Nós somos capazes de processar uma grande volume de palavras chaves!
+      </p>
+
+    </div>
+  </div>
+
+</div>
+</main>
+
+
+<!-- Javascript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+<script type="text/javascript">
+    Pusher.logToConsole = true;
+
+    var duration = 0.0;
+
+    var pusher = new Pusher('f8dca6cc86dc0ff772f8', {
+      cluster: 'us2',
+      forceTLS: true
+    });
+
+    var channel = pusher.subscribe('serach');
+    channel.bind('worker', function(data) {
+      console.log( data.message['timer'])
+      console.log(JSON.stringify(data.message.keys));
+
+      $.each( data.message.keys, function(key, value ) {
+        $("#"+key).html(parseInt($("#"+key).text()) + value);
+        $("#duration").html(parseInt($("#"+key).text()) + value);
+        //console.log(key +"-"+value);
+      });
+
+      duration = duration + parseFloat(data.message.timer)
+     
+
+      setTimeout(function(){},3000);
+      $("#duration").html(parseFloat(duration));
+        
+    });
+
+</script>
+
+
+</body>
+</html>
